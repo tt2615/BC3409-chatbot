@@ -63,13 +63,13 @@ def askchatbot(request, slug):
             i += 1
         print(addQn)
 
-        response_data = {'answer': 'Do you mean any of the question below: \n' + addQn + '\nPlease enter question number to see the answer'}
+        response_data = {'answer': 'Do you mean any of the questions below: \n' + addQn + '\nPlease enter question number to see the answer'}
 
     elif unslug.isdigit() and len(additionalRes)>0:
         print('enter qns selection')
         index = int(unslug)
-        selection = additionalRes[index]
-        response_data = {'answer': selection.answer + '\n\n Key in another question number to see more answer or ask me a new question'}
+        selection = additionalRes[index-1]
+        response_data = {'answer': selection.answer + '\n\nKey in another question number to see more answer or ask me a new question'}
 
     else:
         if size == df.shape[0]:
@@ -97,7 +97,7 @@ def askchatbot(request, slug):
                 fail_silently=False,
                 )
 
-        response_data = {'answer': result["answer"] + '\n\nIs this what you want?\nkey in Y for Yes to answer another question\nkey in N for No to look for suggested Questions.'}
+        response_data = {'answer': result["answer"] + '\n\nIs this what you want?\nkey in Y for Yes to answer another question\nkey in N for No to view similar questions.'}
 
     return HttpResponse(json.dumps(response_data), content_type="application/json")
 
