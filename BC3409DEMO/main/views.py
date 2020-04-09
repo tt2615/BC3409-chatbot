@@ -45,6 +45,7 @@ def askchatbot(request, slug):
     # do something with the your data
     print('System is processing your question...')
     unslug = slug.replace("-", " ")
+    print('query content: ' + unslug)
     result = Database.objects.all().values()
     df = pd.DataFrame(result)
 
@@ -68,7 +69,9 @@ def askchatbot(request, slug):
     elif unslug.isdigit() and len(additionalRes)>0:
         print('enter qns selection')
         index = int(unslug)
+        print(index)
         selection = additionalRes[index-1]
+        print(selection)
         response_data = {'answer': selection.answer + '\n\nKey in another question number to see more answer or ask me a new question'}
 
     else:
