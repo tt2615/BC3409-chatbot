@@ -87,7 +87,6 @@ def askchatbot(request, slug):
         input_qn = query.question(unslug)
         result = query.query(input_qn, True)
         additionalRes = result['additionalRes']
-        print(len(additionalRes))
 
         if result["sim"] < 0.5:
             response_data = {'answer': "Answer may not be what you want but we are working on it!\n" + result["answer"]}

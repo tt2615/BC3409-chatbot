@@ -368,6 +368,7 @@ def query(q, debug = False):
 
     ## DEVSPACE
     results.sort(key=lambda x: x.sim, reverse=True)
+    print('length of results:' + str(len(results)))
     # print(results.sim)
     # similarity_list.sort(reverse=True)
     # count = 1
@@ -471,10 +472,17 @@ def query(q, debug = False):
         # idx = prb.index(maxsim)
         # ans = returnasw(quest[idx])
 
+        seen_titles = set()
+        new_results = []
+        for obj in results:
+            if obj.question not in seen_titles:
+                new_results.append(obj)
+                seen_titles.add(obj.question)
+
         maxsim = results[0].sim
         ans = results[0].answer
-        print('ans: ' + ans)
-        additionalRes = [x for x in results if x.sim > 0.5]
+        print('ans: ' + ans)    
+        additionalRes = [x for x in new_results if x.sim > 0.5]
         return {"sim": maxsim, "answer":ans, 'additionalRes':additionalRes}
 
 def returnasw(qn):
